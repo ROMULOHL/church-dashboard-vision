@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Custom colors
+				church: {
+					background: '#F9FAFB',
+					text: '#1F2937',
+					button: '#2563EB',
+					income: '#10B981',
+					expense: '#EF4444'
 				}
 			},
 			borderRadius: {
