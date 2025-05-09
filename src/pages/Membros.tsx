@@ -1,10 +1,21 @@
 
-import React from "react";
+import React, { useState } from "react";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { CardChurch, CardContent, CardHeader, CardTitle } from "@/components/ui/card-church";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, Plus, UserPlus, Filter } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
 
 const mockMembers = [
   { id: 1, nome: "João Silva", telefone: "(11) 98765-4321", idade: 35, nascimento: "15/04/1990", profissao: "Engenheiro", funcao: "Líder de Louvor", batizado: true, dizimista: true },
@@ -15,14 +26,107 @@ const mockMembers = [
 ];
 
 const Membros: React.FC = () => {
+  const [showFilters, setShowFilters] = useState(false);
+  const [nome, setNome] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [idade, setIdade] = useState("");
+  const [funcao, setFuncao] = useState("");
+  const { toast } = useToast();
+
+  const handleFilter = () => {
+    setShowFilters(!showFilters);
+    // Implementação do filtro
+  };
+
+  const handleSaveMember = () => {
+    // Aqui seria implementada a lógica de salvar o membro
+    toast({
+      title: "Membro adicionado",
+      description: `${nome} foi adicionado com sucesso.`,
+    });
+  };
+
   return (
     <DashboardLayout>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-church-text">Cadastro de Membros</h1>
-        <Button className="bg-church-button hover:bg-church-button/90 flex items-center gap-2">
-          <UserPlus size={18} />
-          <span>Novo Membro</span>
-        </Button>
+        <h1 className="text-2xl font-bold text-church-button">Cadastro de Membros</h1>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="bg-church-button hover:bg-church-button/90 flex items-center gap-2">
+              <UserPlus size={18} />
+              <span>Novo Membro</span>
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[500px]">
+            <DialogHeader>
+              <DialogTitle>Adicionar novo membro</DialogTitle>
+              <DialogDescription>
+                Preencha todos os dados para cadastrar um novo membro na igreja.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="nome" className="text-right">
+                  Nome
+                </Label>
+                <Input
+                  id="nome"
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="telefone" className="text-right">
+                  Telefone
+                </Label>
+                <Input
+                  id="telefone"
+                  value={telefone}
+                  onChange={(e) => setTelefone(e.target.value)}
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="idade" className="text-right">
+                  Idade
+                </Label>
+                <Input
+                  id="idade"
+                  value={idade}
+                  onChange={(e) => setIdade(e.target.value)}
+                  type="number"
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="funcao" className="text-right">
+                  Função
+                </Label>
+                <select
+                  id="funcao"
+                  value={funcao}
+                  onChange={(e) => setFuncao(e.target.value)}
+                  className="col-span-3 border rounded-md p-2"
+                >
+                  <option value="">Selecione...</option>
+                  <option value="pastor">Pastor</option>
+                  <option value="diacono">Diácono</option>
+                  <option value="lider">Líder de Ministério</option>
+                  <option value="tesoureiro">Tesoureiro</option>
+                  <option value="secretario">Secretário(a)</option>
+                  <option value="musico">Músico</option>
+                  <option value="membro">Membro Regular</option>
+                </select>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button type="submit" onClick={handleSaveMember} className="bg-church-button hover:bg-church-button/90">
+                Salvar
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
 
       <CardChurch className="mb-6">
@@ -35,12 +139,54 @@ const Membros: React.FC = () => {
               <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
               <Input placeholder="Pesquisar membros..." className="pl-10" />
             </div>
-            <Button variant="outline" className="flex items-center gap-2">
+            <Button variant="outline" className="flex items-center gap-2" onClick={handleFilter}>
               <Filter size={18} />
               <span>Filtros</span>
             </Button>
             <Button className="bg-church-button hover:bg-church-button/90">Buscar</Button>
           </div>
+          
+          {showFilters && (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 pt-4 border-t border-gray-100">
+              <div>
+                <Label htmlFor="filterIdade">Idade</Label>
+                <select id="filterIdade" className="w-full border rounded p-2 mt-1">
+                  <option value="">Todas as idades</option>
+                  <option value="ate18">Até 18 anos</option>
+                  <option value="19a30">19 a 30 anos</option>
+                  <option value="31a45">31 a 45 anos</option>
+                  <option value="46a60">46 a 60 anos</option>
+                  <option value="acima60">Acima de 60 anos</option>
+                </select>
+              </div>
+              <div>
+                <Label htmlFor="filterFuncao">Função</Label>
+                <select id="filterFuncao" className="w-full border rounded p-2 mt-1">
+                  <option value="">Todas</option>
+                  <option value="pastor">Pastor</option>
+                  <option value="diacono">Diácono</option>
+                  <option value="lider">Líder de Ministério</option>
+                  <option value="tesoureiro">Tesoureiro</option>
+                  <option value="secretario">Secretário(a)</option>
+                  <option value="musico">Músico</option>
+                  <option value="membro">Membro Regular</option>
+                </select>
+              </div>
+              <div>
+                <Label htmlFor="filterStatus">Status</Label>
+                <div className="flex flex-wrap gap-4 mt-2">
+                  <div className="flex items-center">
+                    <input type="checkbox" id="batizado" className="mr-2" />
+                    <Label htmlFor="batizado">Batizado</Label>
+                  </div>
+                  <div className="flex items-center">
+                    <input type="checkbox" id="dizimista" className="mr-2" />
+                    <Label htmlFor="dizimista">Dizimista</Label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </CardContent>
       </CardChurch>
 

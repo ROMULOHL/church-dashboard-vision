@@ -11,7 +11,7 @@ export const CardChurch: React.FC<CardChurchProps> = ({ children, className }) =
   return (
     <div
       className={cn(
-        "bg-white rounded-xl shadow-sm border border-gray-100 p-6 transition-all hover:shadow-md",
+        "bg-white rounded-xl shadow-lg border border-gray-100 p-6 transition-all hover:shadow-xl",
         className
       )}
     >
@@ -30,7 +30,7 @@ export const CardHeader: React.FC<CardChurchProps> = ({ children, className }) =
 
 export const CardTitle: React.FC<CardChurchProps> = ({ children, className }) => {
   return (
-    <h3 className={cn("text-lg font-semibold text-church-text", className)}>
+    <h3 className={cn("text-lg font-semibold text-church-button", className)}>
       {children}
     </h3>
   );

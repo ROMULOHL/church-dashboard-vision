@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Users, DollarSign, FileText, Settings, Menu, X } from "lucide-react";
+import { Users, DollarSign, FileText, Settings, Menu, X, LayoutDashboard } from "lucide-react";
 
 type NavItemProps = {
   to: string;
@@ -42,6 +42,11 @@ export const Sidebar = () => {
 
   const navItems = [
     {
+      to: "/",
+      icon: LayoutDashboard,
+      label: "Painel de Controle",
+    },
+    {
       to: "/membros",
       icon: Users,
       label: "Cadastro de Membros",
@@ -66,7 +71,7 @@ export const Sidebar = () => {
   return (
     <div
       className={cn(
-        "flex flex-col h-screen bg-white border-r border-gray-200 transition-all duration-300",
+        "flex flex-col h-screen bg-white border-r border-gray-200 transition-all duration-300 shadow-md",
         isCollapsed ? "w-[70px]" : "w-64"
       )}
     >
