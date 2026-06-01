@@ -1,9 +1,10 @@
 
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Users, DollarSign, FileText, Settings, Menu, X, LayoutDashboard } from "lucide-react";
+import { Users, DollarSign, FileText, Settings, Menu, X, LayoutDashboard, LogOut } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 type NavItemProps = {
   to: string;
