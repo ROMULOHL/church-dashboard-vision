@@ -35,7 +35,14 @@ const NavItem = ({ to, icon: Icon, label, isActive, onClick }: NavItemProps) => 
 
 export const Sidebar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { signOut, user } = useAuth();
   const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/auth", { replace: true });
+  };
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
