@@ -22,6 +22,7 @@ export const StatCard: React.FC<StatCardProps> = ({
   trend,
   trendValue,
   className,
+  valueClass,
 }) => {
   return (
     <CardChurch className={className}>
@@ -32,7 +33,7 @@ export const StatCard: React.FC<StatCardProps> = ({
         </div>
       </CardHeader>
       <CardContent>
-        <div className="text-3xl font-bold text-church-text">{value}</div>
+        <div className={cn("text-3xl font-bold text-church-text", valueClass)}>{value}</div>
         {description && <p className="text-sm text-gray-500 mt-1">{description}</p>}
         
         {trend && trendValue && (
