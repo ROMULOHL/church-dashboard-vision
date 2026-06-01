@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Calendar, Filter, Download, FilePdf, FileExcel } from "lucide-react";
+import { Calendar, Filter, Download, FileText, FileSpreadsheet } from "lucide-react";
 import { 
   DropdownMenu,
   DropdownMenuContent,
