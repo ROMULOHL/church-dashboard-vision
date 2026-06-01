@@ -110,11 +110,13 @@ export const Sidebar = () => {
         ))}
       </nav>
 
-      <div className="p-4 border-t border-gray-200">
+      <div className="p-2 border-t border-gray-200 space-y-2">
+        <Button variant="ghost" onClick={handleSignOut} className="w-full justify-start gap-2 text-church-text hover:bg-gray-100">
+          <LogOut size={18} />
+          {!isCollapsed && <span>Sair{user?.email ? ` (${user.email})` : ""}</span>}
+        </Button>
         {!isCollapsed && (
-          <p className="text-xs text-gray-500 text-center">
-            Sistema de Gestão © 2025
-          </p>
+          <p className="text-xs text-gray-500 text-center">Sistema de Gestão © 2025</p>
         )}
       </div>
     </div>
