@@ -14,7 +14,134 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      members: {
+        Row: {
+          batizado: boolean
+          created_at: string
+          dizimista: boolean
+          email: string | null
+          endereco: string | null
+          funcao: string | null
+          id: string
+          nascimento: string | null
+          nome: string
+          observacoes: string | null
+          profissao: string | null
+          telefone: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          batizado?: boolean
+          created_at?: string
+          dizimista?: boolean
+          email?: string | null
+          endereco?: string | null
+          funcao?: string | null
+          id?: string
+          nascimento?: string | null
+          nome: string
+          observacoes?: string | null
+          profissao?: string | null
+          telefone?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          batizado?: boolean
+          created_at?: string
+          dizimista?: boolean
+          email?: string | null
+          endereco?: string | null
+          funcao?: string | null
+          id?: string
+          nascimento?: string | null
+          nome?: string
+          observacoes?: string | null
+          profissao?: string | null
+          telefone?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          church_name: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          church_name?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          church_name?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      transactions: {
+        Row: {
+          categoria: string
+          created_at: string
+          data: string
+          descricao: string | null
+          forma_pagamento: Database["public"]["Enums"]["payment_method"]
+          id: string
+          member_id: string | null
+          tipo: Database["public"]["Enums"]["transaction_type"]
+          updated_at: string
+          user_id: string
+          valor: number
+        }
+        Insert: {
+          categoria: string
+          created_at?: string
+          data?: string
+          descricao?: string | null
+          forma_pagamento?: Database["public"]["Enums"]["payment_method"]
+          id?: string
+          member_id?: string | null
+          tipo: Database["public"]["Enums"]["transaction_type"]
+          updated_at?: string
+          user_id: string
+          valor: number
+        }
+        Update: {
+          categoria?: string
+          created_at?: string
+          data?: string
+          descricao?: string | null
+          forma_pagamento?: Database["public"]["Enums"]["payment_method"]
+          id?: string
+          member_id?: string | null
+          tipo?: Database["public"]["Enums"]["transaction_type"]
+          updated_at?: string
+          user_id?: string
+          valor?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transactions_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +150,8 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      payment_method: "pix" | "cartao" | "dinheiro" | "boleto" | "transferencia"
+      transaction_type: "entrada" | "saida"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +278,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      payment_method: ["pix", "cartao", "dinheiro", "boleto", "transferencia"],
+      transaction_type: ["entrada", "saida"],
+    },
   },
 } as const

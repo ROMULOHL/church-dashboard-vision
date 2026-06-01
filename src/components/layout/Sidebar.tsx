@@ -1,9 +1,10 @@
 
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Users, DollarSign, FileText, Settings, Menu, X, LayoutDashboard } from "lucide-react";
+import { Users, DollarSign, FileText, Settings, Menu, X, LayoutDashboard, LogOut } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 type NavItemProps = {
   to: string;
@@ -34,7 +35,14 @@ const NavItem = ({ to, icon: Icon, label, isActive, onClick }: NavItemProps) => 
 
 export const Sidebar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { signOut, user } = useAuth();
   const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/auth", { replace: true });
+  };
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
@@ -102,11 +110,13 @@ export const Sidebar = () => {
         ))}
       </nav>
 
-      <div className="p-4 border-t border-gray-200">
+      <div className="p-2 border-t border-gray-200 space-y-2">
+        <Button variant="ghost" onClick={handleSignOut} className="w-full justify-start gap-2 text-church-text hover:bg-gray-100">
+          <LogOut size={18} />
+          {!isCollapsed && <span>Sair{user?.email ? ` (${user.email})` : ""}</span>}
+        </Button>
         {!isCollapsed && (
-          <p className="text-xs text-gray-500 text-center">
-            Sistema de Gestão © 2025
-          </p>
+          <p className="text-xs text-gray-500 text-center">Sistema de Gestão © 2025</p>
         )}
       </div>
     </div>
