@@ -11,6 +11,7 @@ interface StatCardProps {
   trend?: "up" | "down" | "neutral";
   trendValue?: string;
   className?: string;
+  valueClass?: string;
 }
 
 export const StatCard: React.FC<StatCardProps> = ({

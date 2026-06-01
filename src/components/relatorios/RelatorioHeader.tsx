@@ -56,11 +56,11 @@ export const RelatorioHeader: React.FC<RelatorioHeaderProps> = ({ title }) => {
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem onClick={handleExportPDF} className="flex items-center gap-2 cursor-pointer">
-                <FilePdf size={18} />
+                <FileText size={18} />
                 <span>Exportar como PDF</span>
               </DropdownMenuItem>
               <DropdownMenuItem onClick={handleExportExcel} className="flex items-center gap-2 cursor-pointer">
-                <FileExcel size={18} />
+                <FileSpreadsheet size={18} />
                 <span>Exportar como Excel</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
