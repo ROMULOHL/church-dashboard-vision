@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Calendar, Filter, Download, FilePdf, FileExcel } from "lucide-react";
+import { Calendar, Filter, Download, FileText, FileSpreadsheet } from "lucide-react";
 import { 
   DropdownMenu,
   DropdownMenuContent,
@@ -56,11 +56,11 @@ export const RelatorioHeader: React.FC<RelatorioHeaderProps> = ({ title }) => {
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem onClick={handleExportPDF} className="flex items-center gap-2 cursor-pointer">
-                <FilePdf size={18} />
+                <FileText size={18} />
                 <span>Exportar como PDF</span>
               </DropdownMenuItem>
               <DropdownMenuItem onClick={handleExportExcel} className="flex items-center gap-2 cursor-pointer">
-                <FileExcel size={18} />
+                <FileSpreadsheet size={18} />
                 <span>Exportar como Excel</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
